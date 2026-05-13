@@ -1,0 +1,27 @@
+{
+    "best_model": "XGBoost",
+    "best_r2_score": 0.9561,
+    "estimated_emissions_kg_co2": 0.000266,
+    "all_model_results": {
+        "Linear Regression": {
+            "MAE": 648.3669,
+            "RMSE": 1105.3577,
+            "R2_Score": 0.9362
+        },
+        "Random Forest": {
+            "MAE": 520.8045,
+            "RMSE": 936.954,
+            "R2_Score": 0.9541
+        },
+        "Gradient Boosting": {
+            "MAE": 513.8491,
+            "RMSE": 926.057,
+            "R2_Score": 0.9552
+        },
+        "XGBoost": {
+            "MAE": 510.6091,
+            "RMSE": 916.3841,
+            "R2_Score": 0.9561
+        }
+    }
+}

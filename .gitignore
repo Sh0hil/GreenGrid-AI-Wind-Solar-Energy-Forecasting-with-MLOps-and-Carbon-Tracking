@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+.env
+.env.*
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Raw and processed data
+data/raw/
+data/processed/
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db

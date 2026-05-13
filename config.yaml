@@ -1,0 +1,7 @@
+data:
+  raw_data_path: "data/raw/Energy Production Dataset.csv"
+  processed_data_path: "data/processed/clean_energy_production_data.csv"
+
+project:
+  name: "GreenGrid AI"
+  version: "v2"
