@@ -13,6 +13,24 @@ Renewable energy production depends on source type, time, seasonality, and recen
 The model uses a time-based train-test split, where older data is used for training and future data is used for testing.
 
 ---
+## Screenshots
+
+### Streamlit Dashboard
+![Streamlit Dashboard](assets/dashboard.png)
+
+### Actual vs Predicted Production
+![Actual vs Predicted](assets/actual-vs-predicted.png)
+
+### Live Prediction
+![Live Prediction](assets/live-prediction.png)
+
+### FastAPI Swagger UI
+![FastAPI Docs](assets/fastapi-docs.png)
+
+### Dockerized Application
+![Docker Running](assets/docker-running.png)
+
+---
 
 ## Tech Stack
 
