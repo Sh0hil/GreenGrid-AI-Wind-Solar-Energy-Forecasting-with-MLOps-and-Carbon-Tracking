@@ -7,16 +7,7 @@ import streamlit as st
 import plotly.express as px
 
 
-# -------------------------------------------------------------------
-# Backend API Configuration
-# -------------------------------------------------------------------
-# Local development:
-#   API_URL=http://127.0.0.1:8000
-#
-# Docker / AWS EC2 deployment:
-#   BACKEND_URL=http://green-grid-ai-backend:8000
-#
-# This supports both names so the app works locally and inside Docker.
+
 API_URL = (
     os.getenv("BACKEND_URL")
     or os.getenv("API_URL")
