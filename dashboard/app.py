@@ -7,7 +7,21 @@ import streamlit as st
 import plotly.express as px
 
 
-API_URL = os.getenv("API_URL", "http://127.0.0.1:8000")
+# -------------------------------------------------------------------
+# Backend API Configuration
+# -------------------------------------------------------------------
+# Local development:
+#   API_URL=http://127.0.0.1:8000
+#
+# Docker / AWS EC2 deployment:
+#   BACKEND_URL=http://green-grid-ai-backend:8000
+#
+# This supports both names so the app works locally and inside Docker.
+API_URL = (
+    os.getenv("BACKEND_URL")
+    or os.getenv("API_URL")
+    or "http://127.0.0.1:8000"
+).rstrip("/")
 
 
 st.set_page_config(
@@ -41,6 +55,23 @@ def load_emissions():
         return None
 
 
+def check_backend_health() -> bool:
+    """
+    Check whether the FastAPI backend is reachable.
+    It first tries /health. If /health is not available, it tries /docs.
+    """
+    try:
+        health_response = requests.get(f"{API_URL}/health", timeout=5)
+        if health_response.status_code == 200:
+            return True
+
+        docs_response = requests.get(f"{API_URL}/docs", timeout=5)
+        return docs_response.status_code == 200
+
+    except requests.exceptions.RequestException:
+        return False
+
+
 metrics = load_metrics()
 predictions = load_predictions()
 feature_importance = load_feature_importance()
@@ -56,6 +87,17 @@ st.markdown(
     feature importance, prediction errors, and estimated carbon emissions from training.
     """
 )
+
+
+with st.sidebar:
+    st.header("Backend Status")
+    st.caption("Current backend API URL:")
+    st.code(API_URL)
+
+    if check_backend_health():
+        st.success("Backend connected")
+    else:
+        st.error("Backend not reachable")
 
 best_model = metrics["best_model"]
 best_r2 = metrics["best_r2_score"]
@@ -308,3 +350,11 @@ if st.button("Predict Energy Production"):
             f"FastAPI backend is not reachable at {API_URL}. "
             "If running locally, start it using: python -m uvicorn app.main:app --reload"
         )
+
+    except requests.exceptions.Timeout:
+        st.error(
+            f"Request timed out while connecting to FastAPI backend at {API_URL}."
+        )
+
+    except requests.exceptions.RequestException as error:
+        st.error(f"Unexpected API request error: {error}")
